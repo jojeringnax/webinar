@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Video;
 use Illuminate\Http\Request;
+use Psy\Util\Json;
 
 class VideoController extends Controller
 {
@@ -39,5 +40,15 @@ class VideoController extends Controller
     public function update($id, Request $request)
     {
         return $this->store(Video::findOrFail($id), $request);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function comments($id)
+    {
+        $video = Video::find($id);
+        return json_encode($video->getCommentsAsArray());
     }
 }

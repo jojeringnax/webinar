@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $date
  * @property integer $status
+ * @property integer $parent_id
  * @property string $created_at
  * @property string $updated_at
  *
@@ -60,6 +61,21 @@ class Comment extends Model
      */
     public function comments()
     {
-        return $this->hasMany(self::class);
+        return $this->hasMany(self::class, 'parent_id');
+    }
+
+    /**
+     * @param $result
+     * @return mixed
+     */
+    public static function getChildrenUntilArmageddon($id)
+    {
+        $comment = self::find($id);
+        $children = $comment->comments;
+        $result['comment'] = self::find($id)->toArray();
+        foreach ($children as $child) {
+            $result['children'][$child->id] = $child->getChildrenUntilArmageddon($child->id);
+        }
+        return $result;
     }
 }

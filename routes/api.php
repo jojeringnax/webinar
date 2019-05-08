@@ -39,7 +39,11 @@ Route::group(['middleware' => 'api-header'], function () {
 });
 
 
-
+Route::get('commens', function() {
+    $video = \App\Video::find(1);
+    //$comments = $video->getChildrenUntilArmageddon();
+    return var_dump($video->getCommentsAsArray());
+});
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Faker\Provider\Payment;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -42,6 +43,20 @@ class Video extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderBy('created_at', 'asc');
+    }
+
+    /**
+     * @return array
+     */
+    public function getCommentsAsArray()
+    {
+        $comments = $this->comments;
+        if($comments->isEmpty()) return [];
+        foreach ($comments as $comment) {
+            if($comment->parent_id !== null) continue;
+            $resultArray[] = Comment::getChildrenUntilArmageddon($comment->id);
+        }
+        return $resultArray;
     }
 }
