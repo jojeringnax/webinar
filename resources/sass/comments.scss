@@ -1,0 +1,42 @@
+
+.comment {
+  .comments-user {
+    margin-bottom: 15px;
+    .comments-user__name {
+      font-family: Open Sans,Arial,sans-serif;
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .comments-user__time {
+      color: #657195;
+      font-family: Open Sans,Arial,sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+    }
+  }
+
+  .comments__text {
+    color: #657195;
+    font-family: Open Sans,Arial,sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+  }
+  .comments__action {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    .reply {
+      color: #657195;
+      font-family: Open Sans,Arial,sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      &:hover {
+        color: forestgreen;
+        font-weight: bold;
+      }
+    }
+  }
+}
