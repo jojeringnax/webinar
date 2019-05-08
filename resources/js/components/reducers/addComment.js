@@ -7,7 +7,7 @@ export const comments = (state = [], action) => {
                 text: action.comment,
                 userName: action.userName,
                 userTime: action.userTime
-            }
+            };
         default:
             return state
     }

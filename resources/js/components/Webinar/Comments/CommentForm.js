@@ -1,5 +1,5 @@
 import React from 'react';
-import {store} from "../../App";
+import {store} from "../../Root";
 import {addCommnet} from "../../actions/actions";
 
 class CommentForm extends React.Component{

@@ -13,4 +13,4 @@ import 'mdbreact/dist/css/mdb.css';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/App');
+require('./');

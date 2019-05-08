@@ -4,7 +4,6 @@ import Comments from '../containers/Commnets';
 
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
-
 class WebinarPage extends React.Component{
     render() {
         return (
