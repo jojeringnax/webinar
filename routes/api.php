@@ -15,12 +15,19 @@ use \Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['jwt.auth','api-header']], function () {
-    // all routes to protected resources are registered here
-    Route::get('users/list', function(){
-        $users = App\User::all();
-        $response = ['success'=>true, 'data'=>$users];
-        return response()->json($response, 201);
-    });
+
+    Route::get('videos', 'VideoController@index');
+    Route::post('video/create', 'VideoController@create');
+    Route::post('video/{id}/update', 'VideoController@update');
+    Route::post('video/{id}/delete', 'VideoController@delete');
+    Route::get('video/{id}/comments', 'VideoController@comments');
+
+    Route::get('comments', 'CommentController@index');
+    Route::post('comment/create', 'CommentController@create');
+    Route::post('comment/{id}/update', 'CommentController@update');
+    Route::post('comment/{id}/delete', 'CommentController@delete');
+    Route::get('comment/{id}/comments', 'CommentController@comments');
+
 });
 
 Route::group(['middleware' => 'api-header'], function () {
@@ -39,12 +46,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('videos', 'VideoController@index');
-Route::get('video/create', 'VideoController@create');
-Route::get('video/{id}/update', 'VideoController@update');
-Route::get('video/{id}/delete', 'VideoController@delete');
-Route::get('video/{id}/comments', 'VideoController@comments');
 
 
 
-Route::get('comments', 'CommentController@index');
+
