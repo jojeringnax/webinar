@@ -11,8 +11,29 @@ import Auth from "./containers/Auth";
 
 class App extends Component {
 
-    componentDidMount() {
-        console.log(this.state);
+    constructor(props) {
+        super(props);
+        const {cookies} = props;
+        this.state = {
+            cookies: false
+        };
+        console.log(cookies.get('user').auth_token);
+        if (!cookies.get('isLogged')) {
+            alert('faf');
+            cookies.set('user', {
+                auth_token: "",
+                email: "",
+                id: 0,
+                name: "",
+                timestamp: ""
+            }, {path: "/"});
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.cookies !== this.props.cookies) {
+            this.setState({cookies: !cookies})
+        }
     }
 
     render() {
@@ -20,7 +41,7 @@ class App extends Component {
             <Router>
                 <Switch>
                     <Route exact path="/admin" render={() => (<Auth cookies={this.props.cookies}/>)} />
-                    <Route exact path="/admin/register" component={RegisterComponent} />
+                    <Route exact path="/admin/register" render={() => (<RegisterComponent cookies={this.props.cookies}/>)} />
                     <Route exact path="/admin/login" component={LoginComponent} />
                     <Route exact path="/admin/dashboard" component={DashboardAdmin} />
                 </Switch>

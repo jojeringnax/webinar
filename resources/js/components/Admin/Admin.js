@@ -8,14 +8,17 @@ import Register from "../../auth/RegisterComponent";
 class Admin extends React.Component{
     constructor(props) {
         super(props);
-        const {cookies} = this.props;
     }
+
+
+
+
     render() {
         return (
             <div className="admin-page container">
                 <div className="row">
                     {/*<a onClick={this.handleClick}>Nice</a>*/}
-                    <Login loginUser={this._loginUser}/>
+                    <Login cookies={this.props.cookies} />
                     {/*<Register registerUser={this._registerUser}/>*/}
                 </div>
             </div>

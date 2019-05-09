@@ -20,6 +20,6 @@ export const renderComments = (obj, level=0) => {
     return result;
 };
 
-export const adminAxios = (url, settings) => {
-  return  axios.get(url + "?token=" + store.getState().user.auth_token, settings);
+export const adminAxios = (url, cookies, settings) => {
+  return  axios.get(url + "?token=" + cookies.get('user').auth_token, settings);
 };

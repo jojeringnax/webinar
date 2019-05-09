@@ -8,6 +8,8 @@ import {setAuth} from "../components/actions/actions";
 class Register extends React.Component {
     constructor(props) {
         super(props);
+
+
         this.state = {
             isLoggedIn: false,
             user: {auth_token: ""},
@@ -19,6 +21,7 @@ class Register extends React.Component {
         };
 
         const $ = jquery;
+
         this.changeInput = (e) => {
             this.setState({
                 userData: {
@@ -87,6 +90,7 @@ class Register extends React.Component {
     render() {
         return (
             <div className="container">
+                <div className={'vlad'}>{this.props.cookies.get('user').name}</div>
                 <div className="row">
                     <div id="main">
                         <form id="register-form" onSubmit={this._registerUser} method="post">

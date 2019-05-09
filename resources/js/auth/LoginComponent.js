@@ -12,14 +12,8 @@ class Login extends React.Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
-        };
-
-        const { cookies } = props;
-
-        this.handleLogin = (e) => {
-            e.preventDefault();
-            props.loginUser(this._email.value, this._password.value);
+            password: '',
+            isLogged: Boolean(props.cookies.get('isLogged'))
         };
 
         this.onChangeInput = (e) => {
@@ -27,7 +21,8 @@ class Login extends React.Component {
               [e.target.name]: e.target.value
           })
         };
-        console.log(cookies)
+
+        const {cookies} = this.props;
 
 
 
@@ -58,8 +53,8 @@ class Login extends React.Component {
                             auth_token: json.data.data.auth_token,
                             timestamp: new Date().toString()
                         };
-                        this.cookies.set('isLogged', true);
-                        store.dispatch(setAuth(true, userData));
+                        cookies.set('isLogged', true, {path: '/'});
+                        cookies.set('user', userData, {path: '/'});
 
                     } else alert("Login Failed!");
 
@@ -93,7 +88,7 @@ class Login extends React.Component {
                                    name="password" type="password" className="center-block" placeholder="password"/>
                             <button type="submit" className="btn btn-success"
                                     id="submit-login">
-                                Login
+                                {this.state.isLogged ? 'Logged': 'Login'}
                             </button>
                         </form>
                     </div>
