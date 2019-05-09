@@ -16,13 +16,21 @@ use \Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['jwt.auth','api-header']], function () {
 
-    Route::get('videos', 'VideoController@index');
+    Route::get('videos', function() {
+        return \App\Video::all()->toJson();
+    });
     Route::post('video/create', 'VideoController@create');
+    Route::get('video/{id}', function($id) {
+        return \App\Video::find($id)->toJson();
+    });
     Route::post('video/{id}/update', 'VideoController@update');
     Route::post('video/{id}/delete', 'VideoController@delete');
     Route::get('video/{id}/comments', 'VideoController@comments');
 
-    Route::get('comments', 'CommentController@index');
+
+    Route::get('comments', function() {
+        return \App\Comment::all()->toJson();
+    });
     Route::post('comment/create', 'CommentController@create');
     Route::post('comment/{id}/update', 'CommentController@update');
     Route::post('comment/{id}/delete', 'CommentController@delete');

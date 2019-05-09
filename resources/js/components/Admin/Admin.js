@@ -1,25 +1,30 @@
 import React from 'react';
-import AllWebinars from "./AllWebinars";
-import jquery from "jquery";
-import axios from "axios";
-import Login from '../../auth/LoginComponent';
-import Register from "../../auth/RegisterComponent";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import RegisterComponent from "../../auth/RegisterComponent";
+import Login from "../../auth/LoginComponent";
+import DashboardAdmin from "./DashboardAdmin";
+
 
 class Admin extends React.Component{
     constructor(props) {
         super(props);
     }
 
-
-
-
     render() {
+        {console.log(Boolean(this.props.cookies.get('isLogged')))}
         return (
             <div className="admin-page container">
                 <div className="row">
-                    {/*<a onClick={this.handleClick}>Nice</a>*/}
-                    <Login cookies={this.props.cookies} />
-                    {/*<Register registerUser={this._registerUser}/>*/}
+                    <Router>
+                        <Switch>
+                            <Route exact path="/admin/register" render={() => (<RegisterComponent cookies={this.props.cookies}/>)} />
+                            <Route exact path="/admin/login" render={() => (<Login cookies={this.props.cookies}/>)} />
+                            {
+                                !this.props.cookies.get('isLogged') && (<Redirect from="/admin" to="/admin/login" />)
+                            }
+                                <Route path="/admin/dashboard" render={() => (<DashboardAdmin cookies={this.props.cookies}/>)} />
+                        </Switch>
+                    </Router>
                 </div>
             </div>
         );

@@ -1,9 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import jquery from "jquery";
 import axios from "axios";
-import {store} from "../components/Root";
-import {setAuth} from "../components/actions/actions";
 
 class Register extends React.Component {
     constructor(props) {

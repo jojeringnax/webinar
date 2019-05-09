@@ -1,10 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import {store} from "../components/Root";
-import {setAuth} from "../components/actions/actions";
 import jquery from "jquery";
-import { useCookies } from 'react-cookie';
 
 class Login extends React.Component {
 
@@ -23,8 +19,6 @@ class Login extends React.Component {
         };
 
         const {cookies} = this.props;
-
-
 
         this._loginUser = (e) => {
             e.preventDefault();
@@ -69,11 +63,7 @@ class Login extends React.Component {
                         .html("Login");
                 });
         };
-
     }
-
-
-
 
     render() {
         return (
