@@ -13,7 +13,7 @@ class Admin extends React.Component{
     render() {
         {console.log(Boolean(this.props.cookies.get('isLogged')))}
         return (
-            <div className="admin-page container">
+            <div className="container-fluid">
                 <div className="row">
                     <Router>
                         <Switch>

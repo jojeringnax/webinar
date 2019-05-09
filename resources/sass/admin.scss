@@ -1,3 +1,109 @@
 .container-admin {
   width: 100%;
+  min-height: 100vh;
+  background-color: #F5F4F9;
+}
+
+.container-content-admin {
+  margin-top: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+}
+.nav-bar-admin {
+
+}
+
+.admin-input-item {
+  margin-top: 15px;
+}
+
+.form-admin {
+  box-shadow: 0.3125rem 0.3125rem 0.625rem rgba(0,0,0,0.25);
+  background-color: white;
+  padding: 50px 25px ;
+}
+
+.text-label__admin {
+  flex-grow: 1;
+  width: 35%;
+}
+
+.comments-admin {
+  box-shadow: 0.3125rem 0.3125rem 0.625rem rgba(0,0,0,0.25);
+  background-color: white;
+  padding: 50px 25px ;
+
+  .comments-block__admin {
+    width: 100%;
+
+    .comment-parent__admin{
+      margin-top: 30px;
+      min-height: 15vh;
+
+      .item-comment__admin {
+        margin-left: 25px;
+      }
+
+      .data-comment__admin {
+        width: 70%;
+        .data-comment__admin {
+          margin-left: 25px;
+          color: black;
+          font-weight: bold;
+        }
+        .name-user__admin {
+          color: rgb(66, 133, 244);
+          font-weight: bold;
+          font-size: 14px;
+          height: 100%;
+          display: flex;
+          align-items: flex-start;
+        }
+      }
+
+      .user-avatar-comment__admin {
+        border: 1px solid #9f9f9f;
+        border-radius: 10px;
+        height: 100%;
+
+        svg {
+          width: 10vh;
+          height: 100%;
+        }
+
+      }
+      .action-comment__admin {
+        align-self: stretch;
+        margin-left: 25px;
+        .icon-action__admin {
+          margin-left: 5px;
+          svg {
+            width: 3.5vh;
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+              stroke: #e3342f;
+              color: #e3342f;
+            }
+          }
+        }
+
+      }
+
+      .id-comment__admin {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: bold;
+        height: 100%;
+      }
+
+    }
+    .parent {
+
+    }
+  }
 }
