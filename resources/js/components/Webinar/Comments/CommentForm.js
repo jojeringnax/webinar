@@ -1,14 +1,15 @@
 import React from 'react';
 import {store} from "../../Root";
 import {addCommnet} from "../../actions/actions";
+import {adminAxios} from "../../../functions";
+
 
 class CommentForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             commentText: "",
-            name: "",
-            time: "",
+            name: "Влад",
             avatar:""
         };
     }
@@ -22,7 +23,8 @@ class CommentForm extends React.Component{
 
     submitComment = (e) => {
         e.preventDefault();
-        store.dispatch(addCommnet(this.state.commentText, "Иван", "11.02.1994"))
+        let formData = new FormData(e.target);
+        adminAxios('/api/comment/create', formData, 'post');
 
     };
     render() {
@@ -30,7 +32,9 @@ class CommentForm extends React.Component{
             <div className="form-group">
                 <form onSubmit={this.submitComment}>
                     <label htmlFor="formComment">Ваш комментарий</label>
+                    <input name="name" type="text" defaultValue="asdasd"/>
                     <textarea
+                        name="content"
                         className="form-control"
                         id="formComment"
                         value={this.state.commentText}

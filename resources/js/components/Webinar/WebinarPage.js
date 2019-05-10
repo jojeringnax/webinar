@@ -4,7 +4,24 @@ import Comments from '../containers/Commnets';
 
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
+import Echo from 'laravel-echo';
+
+
 class WebinarPage extends React.Component{
+    constructor(props){
+        window.io = require('socket.io-client');
+        window.Echo = new Echo({
+            broadcaster: 'socket.io',
+            host: window.location.hostname + ':6001'
+        });
+
+        window.Echo.channel('newComment')
+            .listen('NewCommentNotification', (e) => {
+                console.log(e);
+            });
+        super(props);
+    }
+
     render() {
         return (
             <div>

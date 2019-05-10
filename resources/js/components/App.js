@@ -4,6 +4,7 @@ import Auth from './containers/Auth';
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {store} from "./Root";
 import {setAuth} from "./actions/actions";
+import WebinarPage from './Webinar/WebinarPage';
 
 class App extends Component {
 
@@ -23,8 +24,7 @@ class App extends Component {
             }, {path: "/"});
         }
 
-        //console.log(cookies.get('user').auth_token);
-        store.dispatch(setAuth(true,cookies.get('user')));
+        store.dispatch(setAuth(true, cookies.get('user')));
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -39,6 +39,7 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <Route path="/admin" render={() => (<Auth cookies={this.props.cookies}/>)} />
+                        <Route path="/webinar" render={() => (<WebinarPage cookies={this.props.cookies}/>)} />
                     </Switch>
                 </Router>
             </div>

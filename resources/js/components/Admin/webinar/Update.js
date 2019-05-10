@@ -1,23 +1,12 @@
 import React from 'react';
 import {adminAxios, renderComments} from "../../../functions";
-import Echo from 'laravel-echo'
+import Echo from 'laravel-echo';
 
 
 
 class Update extends React.Component{
 
     constructor(props) {
-        window.io = require('socket.io-client');
-        window.Echo = new Echo({
-            broadcaster: 'socket.io',
-            host: window.location.hostname + ':6001'
-        });
-
-        window.Echo.channel('newComment')
-            .listen('NewCommentNotification', (e) => {
-                console.log(e);
-            });
-
         super(props);
         this.state ={
             video: {
