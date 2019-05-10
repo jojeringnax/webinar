@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('test', function(){
+    return ;
+});
+
 Route::get( '/{path?}', function(){
     return view( 'welcome' );
 } )->where('path', '.*');

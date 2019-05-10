@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Events\NewCommentNotification;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -17,6 +18,7 @@ class CommentController extends Controller
         if ($comment === null) return response('Not found video', 404);
         $comment->fill($request->post());
         if ($comment->save()) {
+            event(new NewCommentNotification($comment));
             return $comment->toJson();
         }
         return response('Not saved'.var_dump($comment), 405);

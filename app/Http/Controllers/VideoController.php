@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewCommentNotification;
 use App\Video;
 use Illuminate\Http\Request;
 use Psy\Util\Json;

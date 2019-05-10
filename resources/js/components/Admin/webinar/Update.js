@@ -1,8 +1,23 @@
 import React from 'react';
 import {adminAxios, renderComments} from "../../../functions";
+import Echo from 'laravel-echo'
+
+
 
 class Update extends React.Component{
+
     constructor(props) {
+        window.io = require('socket.io-client');
+        window.Echo = new Echo({
+            broadcaster: 'socket.io',
+            host: window.location.hostname + ':6001'
+        });
+
+        window.Echo.channel('newComment')
+            .listen('NewCommentNotification', (e) => {
+                console.log(e);
+            });
+
         super(props);
         this.state ={
             video: {
@@ -11,9 +26,7 @@ class Update extends React.Component{
                 date: ''
             },
             comments: []
-
         }
-
     }
 
     handleChange = (e) => {
@@ -22,10 +35,17 @@ class Update extends React.Component{
         })
     };
 
+    handleData = (data) => {
+        let result = JSON.parse(data);
+        console.log(result);
+    };
+
+
+
     componentDidMount() {
         adminAxios('/api/video/'+this.props.match.params.id)
             .then(res => {
-                res.data.date = res.data.date.replace(' ', 'T');
+                //res.data.date = res.data.date.replace(' ', 'T');
                 this.setState({
                     video: res.data
                 });
@@ -75,7 +95,7 @@ class Update extends React.Component{
                                     className="admin-input-item form-control"
                                     placeholder="Введите дату проведения мероприятия"
                                     onChange={this.handleChange}
-                                    value={this.state.video.date}
+                                    value={'12'}
                                     name="date" type="datetime-local"
                                 />
                         </label>

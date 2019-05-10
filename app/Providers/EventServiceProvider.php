@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\NewCommentNotification;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -20,6 +21,11 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
+    public function shouldDiscoverEvents()
+    {
+        return true;
+    }
+
     /**
      * Register any events for your application.
      *
@@ -28,7 +34,5 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }

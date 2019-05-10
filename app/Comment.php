@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Channels\BroadcastChannel;
 
 /**
  * Class Comment
@@ -37,6 +38,11 @@ class Comment extends Model
         'video_id',
         'parent_id'
     ];
+
+    const PENDING = 0;
+    const ACTIVE = 1;
+    const HIDDEN = 2;
+    const DELETED = 3;
 
 
     /**
