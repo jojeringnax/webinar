@@ -1,6 +1,10 @@
 
 .comment {
+  border-bottom: 2px solid #e6e8f0;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
   .comments-user {
+
     margin-bottom: 15px;
     .comments-user__name {
       font-family: Open Sans,Arial,sans-serif;
@@ -27,16 +31,151 @@
     display: flex;
     justify-content: flex-end;
     cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
 
     .reply {
       color: #657195;
       font-family: Open Sans,Arial,sans-serif;
       font-weight: 400;
       font-size: 16px;
-      &:hover {
-        color: forestgreen;
-        font-weight: bold;
+      a {
+        color: #657195;
       }
+      //&:hover {
+      //  color: forestgreen;
+      //  font-weight: bold;
+      //}
     }
+  }
+}
+.addComment {
+  textarea {
+    display: block;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: 2px solid #e6e8f0;
+    padding: 25px 25px 25px 25px;
+    color: #657195;
+    font-family: Open Sans,Arial,sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -.58px;
+    box-sizing: border-box;
+    min-height: 120px;
+    line-height: 18px;
+    outline:none;
+  }
+
+  button {
+    margin-top: 15px;
+    width: auto;
+    padding: 12px 25px 12px 25px;
+    max-width: 100%;
+  }
+
+}
+
+.total-comments {
+  h3 {
+    color: #0f1011;
+    font-family: "Roboto", serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.03px;
+  }
+  .number-comments {
+    color: #657195;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 100%;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+}
+
+.hide {
+  display: none;
+}
+.form-reply {
+  width: 100%;
+}
+
+h1.title {
+  color: #000000;
+  font-size: 45px;
+  letter-spacing: -0.41px;
+  font-weight: 700;
+}
+
+.video {
+  .video__frame {
+    height: 400px;
+  }
+}
+
+.video__frame__form {
+  height: 350px;
+}
+
+.video__webinar__main {
+  .video__time {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    .video__time__title {
+
+      font-size: 22px;
+      margin-right: 10px;
+      align-items: flex-end;
+      display: flex;
+    }
+    .video__time__time {
+      color: #657195;
+      font-size: 22px;
+      font-weight: bold;
+      align-self: stretch;
+      align-items: flex-end;
+      display: flex;
+    }
+  }
+
+}
+
+.pending {
+  border: 2px solid #638cee;
+  opacity: 0.7;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.active {
+  border: 2px solid #38c172;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.hidden {
+  opacity: 0.5;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.deleted {
+  border: 2px dotted #e3342f;
+  padding: 10px;
+  border-radius: 15px;
+
+}
+
+.not-found{
+  font-weight: bold;
+  h1 {
+    font-size: 25vh;
+    font-weight: bold !important;
+  }
+  span {
+    font-size: 10vh;
   }
 }

@@ -25,7 +25,9 @@ Route::group(['middleware' => ['jwt.auth','api-header']], function () {
     });
     Route::post('video/{id}/update', 'VideoController@update');
     Route::post('video/{id}/delete', 'VideoController@delete');
-    Route::get('video/{id}/comments', 'VideoController@comments');
+    Route::get('video/{id}/comments', function($id) {
+        return \App\Video::find($id)->comments->toJson();
+    });
 
 
     Route::get('comments', function() {

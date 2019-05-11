@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import {store} from "./Root";
 import {setAuth} from "./actions/actions";
 import WebinarPage from './Webinar/WebinarPage';
-
+import Notfound from './Notfound';
 class App extends Component {
 
     constructor(props) {
@@ -35,15 +35,14 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-                <Router>
-                    <Switch>
-                        <Route path="/admin" render={() => (<Auth cookies={this.props.cookies}/>)} />
-                        <Route path="/webinar" render={() => (<WebinarPage cookies={this.props.cookies}/>)} />
-                    </Switch>
-                </Router>
-            </div>
-
+            <Router>
+                <Switch>
+                    <Route path="/admin" render={() => (<Auth cookies={this.props.cookies}/>)} />
+                    {/*<Route path="/webinar" render={() => (<WebinarPage cookies={this.props.cookies}/>)} />*/}
+                    <Route exact path="/webinar/:id" render={({...routeProps}) => (<WebinarPage {...routeProps} cookies={this.props.cookies}/>)} />
+                    <Route component={Notfound} />
+                </Switch>
+            </Router>
         );
     }
 }

@@ -16,8 +16,7 @@ class CommentController extends Controller
     public function store(Comment $comment, Request $request)
     {
         if ($comment === null) return response('Not found video', 404);
-        $comment->content = $request->post('content');
-        $comment->name = $request->post('name');
+        $comment->fill($request->post());
         if ($comment->save()) {
             event(new NewCommentNotification($comment));
             return $comment->toJson();
