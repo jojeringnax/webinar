@@ -1,11 +1,7 @@
 import React from 'react';
+import Countdown from '../Timer';
 
 class VideoOfWebinar extends React.Component{
-    constructor(props) {
-        super(props);
-    }
-
-
     render() {
         return (
             <div className="video">
@@ -14,7 +10,9 @@ class VideoOfWebinar extends React.Component{
                         <div className="video__frame" dangerouslySetInnerHTML={{__html: this.props.video.link}} />
                         <div className="video__time d-flex justify-content-end">
                             <span className="video__time__title">Вебинар начнется:</span>
-                            <span className="video__time__time"> {this.props.video.date}</span>
+                            <span className="video__time__time">
+                                <Countdown date={this.props.video.date}/>
+                            </span>
                         </div>
                         <div className="video__description">
                             <h2>Описание: {this.props.video.description}</h2>

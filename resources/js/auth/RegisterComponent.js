@@ -5,8 +5,6 @@ import axios from "axios";
 class Register extends React.Component {
     constructor(props) {
         super(props);
-
-
         this.state = {
             isLoggedIn: false,
             user: {auth_token: ""},
@@ -75,7 +73,6 @@ class Register extends React.Component {
         };
 
         this.handleClick = () =>  {
-            console.log(this.state);
             axios.get('/api/users/list?token=' + this.state.user.auth_token)
                 .then(res => {
                     console.log(res)
@@ -87,17 +84,52 @@ class Register extends React.Component {
     render() {
         return (
             <div className="container">
-                <div className={'vlad'}>{this.props.cookies.get('user').name}</div>
+                {/*<div className={'vlad'}>{this.props.cookies.get('user').name}</div>*/}
                 <div className="row">
-                    <div id="main">
-                        <form id="register-form" onSubmit={this._registerUser} method="post">
-                            <h3 style={{ padding: 15 }}>Register Form</h3>
-                            <input onChange={this.changeInput} value={this.state.name} ref={input => (this._name = input)} autoComplete="off" id="name-input-register" name="name" type="text" className="center-block" placeholder="Name" />
-                            <input onChange={this.changeInput} value={this.state.email} ref={input => (this._email = input)} autoComplete="off" id="email-input-register" name="email" type="text" className="center-block" placeholder="Email" />
-                            <input onChange={this.changeInput} value={this.state.password} ref={input => (this._password = input)} autoComplete="off" id="password-input-register" name="password" type="password" className="center-block" placeholder="password" />
-                            <button type="submit" className="landing-page-btn center-block text-center" id="submit-register" href="#facebook" >
-                                Register
-                            </button>
+                    <div id="register-form__admin" className="d-flex align-items-center justify-content-center" >
+                        <form id="" onSubmit={this._registerUser} method="post">
+                            <div className="card">
+                                <div className="card-head">
+                                    <h3 style={{ padding: 15 }}>Register Form</h3>
+                                </div>
+                                <div className="card-body">
+                                    <input
+                                        onChange={this.changeInput}
+                                        value={this.state.name}
+                                        ref={input => (this._name = input)}
+                                        autoComplete="off" id="name-input-register"
+                                        name="name"
+                                        type="text"
+                                        className="center-block form-control"
+                                        placeholder="Name"
+                                    />
+                                    <input
+                                        onChange={this.changeInput}
+                                        value={this.state.email}
+                                        ref={input => (this._email = input)}
+                                        autoComplete="off" id="email-input-register"
+                                        name="email"
+                                        type="text"
+                                        className="center-block form-control"
+                                        placeholder="Email" />
+                                    <input
+                                        onChange={this.changeInput}
+                                        value={this.state.password}
+                                        ref={input => (this._password = input)}
+                                        autoComplete="off"
+                                        id="password-input-register"
+                                        name="password"
+                                        type="password"
+                                        className="center-block form-control"
+                                        placeholder="password"
+                                    />
+                                    <button type="submit" className="landing-page-btn center-block text-center btn btn-outline-success" id="submit-register" href="#facebook" >
+                                        Register
+                                    </button>
+                                </div>
+                            </div>
+
+
                         </form>
                     </div>
                 </div>

@@ -17,23 +17,22 @@ class AllWebinars extends React.Component{
         })
     }
 
-
     render() {
         return (
             <div>
                 <Link to="/admin/dashboard/webinar/create" className="btn btn-outline-success">Создать Вебинар</Link>
                 <table className="table admin-table table-bordered z-depth-1">
-                    <thead className="primary-color-dark border-secondary">
-                    <tr className="">
-                        <th scope="col">id</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Link</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Created_at</th>
-                        <th scope="col">Updated_at</th>
-                        <th scope="col">Actions</th>
-                    </tr>
+                    <thead className="border-secondary">
+                        <tr className="">
+                            <th scope="col">id</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Link</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Created_at</th>
+                            <th scope="col">Updated_at</th>
+                            <th scope="col">Actions</th>
+                        </tr>
                     </thead>
                     <tbody className="">
                     {
@@ -48,8 +47,8 @@ class AllWebinars extends React.Component{
                                     <td key="created_at">{video.created_at}</td>
                                     <td key="updated_at">{video.updated_at}</td>
                                     <td key="actions">
-                                        <Link to={"/admin/dashboard/webinar/update/" + video.id} className="btn btn-info">Update</Link>
-                                        <Link to="" className="btn btn-danger">Delete</Link>
+                                        <Link to={"/admin/dashboard/webinar/update/" + video.id} className="btn btn-info" style={{marginTop:"10px"}}>Update</Link>
+                                        <Link to="" className="btn btn-danger" style={{marginTop:"10px"}}>Delete</Link>
                                     </td>
                                 </tr>
                             )

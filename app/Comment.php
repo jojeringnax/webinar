@@ -37,7 +37,8 @@ class Comment extends Model
         'user_id',
         'video_id',
         'parent_id',
-        'status'
+        'status',
+        'name'
     ];
 
     const PENDING = 0;

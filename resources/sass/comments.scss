@@ -143,26 +143,26 @@ h1.title {
 
 }
 
-.pending {
+.pending__admin {
   border: 2px solid #638cee;
   opacity: 0.7;
   padding: 10px;
   border-radius: 15px;
 }
 
-.active {
+.active__admin {
   border: 2px solid #38c172;
   padding: 10px;
   border-radius: 15px;
 }
 
-.hidden {
+.hidden__admin {
   opacity: 0.5;
   padding: 10px;
   border-radius: 15px;
 }
 
-.deleted {
+.deleted__admin {
   border: 2px dotted #e3342f;
   padding: 10px;
   border-radius: 15px;
@@ -178,4 +178,41 @@ h1.title {
   span {
     font-size: 10vh;
   }
+}
+
+
+.mod-web__userName {
+  width: 450px;
+  height: 200px;
+  position: absolute;
+  display: flex;
+  z-index: 20;
+  top: 100px;
+  .card {
+    .card-head {
+      padding: 10px 0;
+      font-weight: bolder;
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.7;
+  z-index: 10;
+}
+.wrapper__mod-wen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.name-webinar {
+  border: none;
+  outline: none;
 }

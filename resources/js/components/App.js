@@ -37,7 +37,7 @@ class App extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route path="/admin" render={() => (<Auth cookies={this.props.cookies}/>)} />
+                    <Route path="/admin" render={({...routeProps}) => (<Auth {...routeProps} cookies={this.props.cookies}/>)} />
                     {/*<Route path="/webinar" render={() => (<WebinarPage cookies={this.props.cookies}/>)} />*/}
                     <Route exact path="/webinar/:id" render={({...routeProps}) => (<WebinarPage {...routeProps} cookies={this.props.cookies}/>)} />
                     <Route component={Notfound} />

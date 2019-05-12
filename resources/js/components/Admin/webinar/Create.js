@@ -19,7 +19,7 @@ class Create extends React.Component{
         let  formData = new FormData(form);
         adminAxios('/api/video/create', formData, 'post')
             .then(res => {
-                console.log(res.data);
+
             })
 
     };

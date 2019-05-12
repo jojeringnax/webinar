@@ -1,6 +1,5 @@
 import React from 'react';
 import {adminAxios, statuses} from "../../../functions";
-import Echo from 'laravel-echo';
 import {setCommentsArray} from "../../../helpers/helpers";
 import { IoMdPerson, IoIosRedo, IoIosEyeOff, IoIosEye } from "react-icons/io";
 import { MdEdit, MdDelete, MdBlock, MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
@@ -17,7 +16,8 @@ class Update extends React.Component{
                 date: '',
                 description:''
             },
-            comments: []
+            comments: [],
+            commentsContent: {}
         }
     }
 
@@ -27,7 +27,6 @@ class Update extends React.Component{
         let  formData = new FormData(form);
         adminAxios('/api/video/'+ this.props.match.params.id + '/update', formData, 'post')
             .then(res => {
-                console.log(res.data);
             })
 
     };
@@ -43,9 +42,9 @@ class Update extends React.Component{
     };
 
     handleChangeStatusComment = (e) => {
-        console.log(e.currentTarget, e.currentTarget.getAttribute('data-status'));
         adminAxios('/api/comment/'+ e.currentTarget.getAttribute('data-comment_id') + '/update', {status: e.currentTarget.getAttribute('data-status')}, 'post')
             .then(res => {
+
                 let comments = this.state.comments;
                 comments.forEach(el => {
                     if(el.id === res.data.id) {
@@ -59,6 +58,47 @@ class Update extends React.Component{
 
 
             })
+
+    };
+    handleTextArea = (e) => {
+        //console.log(this.state)
+        //e.target.setAttribute('value', e.target.value)
+        this.setState({
+            commentsContent: {
+                ...this.state.commentsContent,
+                [e.target.getAttribute('data-id')] : e.target.value
+            }
+        })
+    };
+
+    updateContentComment = (e) => {
+        e.preventDefault();
+        let idComment = e.target.getAttribute('data-id');
+        let textArea = document.getElementById('content-comment-' + idComment);
+        const btnChangeContent = e.target;
+        adminAxios('/api/comment/' + idComment + '/update', {content: textArea.value}, "post")
+            .then(res => {
+                console.log(res.data)
+                btnChangeContent.style.display = "none";
+                alert('Content is updated');
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    };
+
+    editContentComment =(e) => {
+        let currentTextArea = document.getElementById("content-comment-" + e.currentTarget.getAttribute('data-comment_id'));
+        const btnChangeContent = document.getElementById("btn-change-comment-" + e.currentTarget.getAttribute('data-comment_id'));
+        currentTextArea.addEventListener("blur", function() {
+            currentTextArea.setAttribute("disabled", "true");
+
+            console.log('asd')
+        }, true);
+
+        console.log(e.currentTarget.getAttribute('data-comment_id'), currentTextArea);
+        currentTextArea.removeAttribute("disabled");
+        btnChangeContent.style.display = "block"
 
     };
 
@@ -80,7 +120,18 @@ class Update extends React.Component{
                         <div className="data-comment__admin">{obj.comment.created_at}</div>
                     </div>
                     <div className="comment-content__admin item-comment__admin">
-                        {obj.comment.content}
+                        <textarea
+                            value={this.state.commentsContent[obj.comment.id] ? this.state.commentsContent[obj.comment.id] : ''}
+                            onChange={this.handleTextArea}
+                            className="text-area"
+                            name="comment_content"
+                            data-id={obj.comment.id}
+                            id={"content-comment-" + obj.comment.id}
+                            disabled={true}
+                        >
+                            {obj.comment.content}
+                        </textarea>
+                        <button style={{display:"none"}} id={"btn-change-comment-" + obj.comment.id} data-id={obj.comment.id} onClick={this.updateContentComment} className="btn btn-outline-success">ОБНОВИТЬ</button>
                     </div>
                 </div>
                 <div className="action-comment__admin d-flex align-items-center flex-row justify-content-center">
@@ -88,15 +139,12 @@ class Update extends React.Component{
                         {parseInt(obj.comment.status) !== 1 ? <MdCheckBoxOutlineBlank data-comment_id={obj.comment.id} data-status="1" onClick={this.handleChangeStatusComment}/> : <MdCheckBox data-comment_id={obj.comment.id} data-status="0" onClick={this.handleChangeStatusComment}/>}
                     </div>
                     <div className="icon-action__admin">
-                        <MdEdit onClick={this.handleChangeStatusComment}/>
+                        <MdEdit data-comment_id={obj.comment.id} onClick={this.editContentComment}/>
                     </div>
                     <div className="icon-action__admin">
                         {parseInt(obj.comment.status) !== 2 ? <IoIosEyeOff data-comment_id={obj.comment.id} data-status="2" onClick={this.handleChangeStatusComment}/> : <IoIosEye data-comment_id={obj.comment.id} data-status="1" onClick={this.handleChangeStatusComment}/>}
 
                     </div>
-                    {/*<div className="icon-action__admin">*/}
-                    {/*    <MdBlock />*/}
-                    {/*</div>*/}
                     <div className="icon-action__admin">
                         {parseInt(obj.comment.status) !== 3 ? <MdDelete data-comment_id={obj.comment.id} data-status="3" onClick={this.handleChangeStatusComment}/> : <FaTrashRestore data-comment_id={obj.comment.id} data-status="0" onClick={this.handleChangeStatusComment}/>}
                     </div>
@@ -121,6 +169,15 @@ class Update extends React.Component{
                     .then(res => {
                         this.setState({
                             comments: res.data
+                        })
+
+                        res.data.forEach(el => {
+                            this.setState({
+                                commentsContent: {
+                                    ...this.state.commentsContent,
+                                    [el.id]: el.content
+                                }
+                            })
                         })
                     })
             })

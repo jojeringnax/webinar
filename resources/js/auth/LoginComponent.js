@@ -49,6 +49,7 @@ class Login extends React.Component {
                         };
                         cookies.set('isLogged', true, {path: '/'});
                         cookies.set('user', userData, {path: '/'});
+                        document.location.href = '/admin/dashboard';
 
                     } else alert("Login Failed!");
 
@@ -69,17 +70,49 @@ class Login extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div id="main">
-                        <form id="login-form" onSubmit={this._loginUser} method="post">
-                            <h3 style={{padding: 15}}>Login Form</h3>
-                            <input onChange={this.onChangeInput} value={this.state.email} ref={input => (this._email = input)} autoComplete="off" id="email-input-login"
-                                   name="email" type="text" className="center-block" placeholder="email"/>
-                            <input onChange={this.onChangeInput} value={this.state.password} ref={input => (this._password = input)} autoComplete="off" id="password-input-login"
-                                   name="password" type="password" className="center-block" placeholder="password"/>
-                            <button type="submit" className="btn btn-success"
-                                    id="submit-login">
-                                {this.state.isLogged ? 'Logged': 'Login'}
-                            </button>
+                    <h1 className="text-center login-form__title">Webinars</h1>
+                    <div id="login-form__main" className="d-flex align-content-center justify-content-center" >
+                        <form id="login-form" className="form-group" onSubmit={this._loginUser} method="post">
+
+                            <div className="card">
+                                <div className="card-head">
+                                    <h3 style={{padding: 15}} className="text-center">Login Form</h3>
+                                </div>
+                                <div className="card-body">
+                                    <input
+                                        onChange={this.onChangeInput}
+                                        value={this.state.email}
+                                        ref={input => (this._email = input)}
+                                        autoComplete="off"
+                                        id="email-input-login"
+                                        name="email"
+                                        type="text"
+                                        className="center-block form-control"
+                                        placeholder="email"
+                                    />
+                                    <input
+                                        onChange={this.onChangeInput}
+                                        value={this.state.password}
+                                        ref={input => (this._password = input)}
+                                        autoComplete="off"
+                                        id="password-input-login"
+                                        name="password"
+                                        type="password"
+                                        className="center-block form-control"
+                                        placeholder="password"
+                                    />
+                                    <div className="d-flex justify-content-center">
+                                        <button
+                                            type="submit"
+                                            className="btn btn-outline-success"
+                                            id="submit-login">
+                                            {this.state.isLogged ? 'Logged': 'Login'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </form>
                     </div>
                 </div>

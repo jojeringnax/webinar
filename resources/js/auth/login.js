@@ -11,7 +11,6 @@ export const login = (email, password) => {
     axios
         .post("http://localhost:8000/api/user/login/", formData)
         .then(response => {
-            console.log(response);
             return response;
         })
         .then(json => {
