@@ -17,6 +17,7 @@ class VideoController extends Controller
     public function store(Video $video, Request $request)
     {
         if ($video === null) return response('Not found video', 404);
+        //return var_dump($request->post());
         $video->fill($request->post());
         if ($video->save()) {
             return $video->toJson();

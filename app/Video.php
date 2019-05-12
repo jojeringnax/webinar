@@ -34,7 +34,8 @@ class Video extends Model
         'title',
         'link',
         'date',
-        'status'
+        'status',
+        'description'
     ];
 
 

@@ -22,7 +22,7 @@ class Admin extends React.Component{
                             {
                                 !this.props.cookies.get('isLogged') && (<Redirect from="/admin" to="/admin/login" />)
                             }
-                                <Route path="/admin/dashboard" render={() => (<DashboardAdmin cookies={this.props.cookies}/>)} />
+                                <Route path="/admin/dashboard" render={() => (<DashboardAdmin  cookies={this.props.cookies}/>)} />
                         </Switch>
                     </Router>
                 </div>

@@ -22,6 +22,7 @@ class DashboardAdmin extends React.Component{
                                 <Route exact path="/admin/dashboard/webinars" render={() => (<AllWebinars />)} />
                                 <Route exact path="/admin/dashboard/webinar/create" render={() => (<Create />)} />
                                 <Route exact path="/admin/dashboard/webinar/update/:id" component={Update} />
+
                             </Switch>
                         </Router>
                     </div>

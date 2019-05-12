@@ -1,8 +1,6 @@
 import React from 'react';
-import {store} from "../../Root";
-import {addCommnet} from "../../actions/actions";
-import {adminAxios} from "../../../functions";
 
+import {adminAxios} from "../../../functions";
 
 class CommentForm extends React.Component{
     constructor(props){
@@ -25,22 +23,26 @@ class CommentForm extends React.Component{
         e.preventDefault();
         let formData = new FormData(e.target);
         adminAxios('/api/comment/create', formData, 'post');
-
+        if(e.target.parentElement.classList.contains('form-reply')){
+            e.target.parentElement.classList.add('hide');
+        }
     };
+
     render() {
         return (
-            <div className="form-group">
-                <form onSubmit={this.submitComment}>
-                    <label htmlFor="formComment">Ваш комментарий</label>
-                    <input name="name" type="text" defaultValue="asdasd"/>
+            <div id={"parent_comment_" + this.props.parend_id} className={this.props.hide ? "hide form-reply" : "" + "form-group form__comment"}>
+                <form className="addComment" onSubmit={this.submitComment}>
+                    {/*<label htmlFor="formComment">Ваш комментарий</label>*/}
+                    <input name="name" type="hidden" defaultValue="Влад Ким"/>
                     <textarea
                         name="content"
-                        className="form-control"
                         id="formComment"
                         value={this.state.commentText}
                         onChange={this.changeInput}
+                        placeholder="Введите комментарий"
                     />
-                    <button type="submit" className="btn-outline-success">Отправить комментарий</button>
+                    <input name="parent_id" defaultValue={this.props.parend_id} type="hidden"/>
+                    <button type="submit" className="btn-outline-success">ОТПРАВИТЬ</button>
                 </form>
             </div>
         );

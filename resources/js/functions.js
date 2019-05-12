@@ -1,8 +1,9 @@
 import axios from "axios";
 import React from "react";
 import {store} from "./components/Root";
-import { IoMdPerson, IoIosRedo, IoIosEyeOff } from "react-icons/io";
-import { MdEdit, MdDelete, MdBlock, MdCheckBox } from "react-icons/md";
+import { IoMdPerson, IoIosRedo, IoIosEyeOff, IoIosEye } from "react-icons/io";
+import { MdEdit, MdDelete, MdBlock, MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import CommentForm from './components/Webinar/Comments/CommentForm';
 
 export const handleLol = () => {
     axios.get('/api/video/1/comments?token=' + this.state.user.auth_token)
@@ -10,17 +11,19 @@ export const handleLol = () => {
             this.setState({comments: res.data})
         });
 };
-const statuses = {
+export const statuses = {
     0: 'pending',
     1: 'active',
     2: 'hidden',
     3: 'deleted'
 };
-export const renderComments = (obj, level=0) => {
+
+export const renderCommentsOnAdminPage = (obj, level=0) => {
     if(obj === []){
         return false;
     }
     let result = [];
+
     result.push(
         <div key={obj.comment.id} className={statuses[obj.comment.status] + ' parent comment-parent__admin d-flex justify-content-start align-items-start'}>
             <div className="user-avatar-comment__admin item-comment__admin">
@@ -37,28 +40,102 @@ export const renderComments = (obj, level=0) => {
             </div>
             <div className="action-comment__admin d-flex align-items-center flex-row justify-content-center">
                 <div className="icon-action__admin">
-                    <MdCheckBox />
+                    <a href="" onClick={""}><MdCheckBoxOutlineBlank /></a>
                 </div>
                 <div className="icon-action__admin">
-                    <MdEdit />
+                    <a href="" onClick={""}><MdEdit /></a>
                 </div>
                 <div className="icon-action__admin">
-                    <IoIosEyeOff />
+                    <a href="" onClick={""}><IoIosEyeOff /></a>
                 </div>
                 {/*<div className="icon-action__admin">*/}
                 {/*    <MdBlock />*/}
                 {/*</div>*/}
                 <div className="icon-action__admin">
-                    <MdDelete />
+                    <a href="" onClick={""}><MdDelete /></a>
                 </div>
             </div>
         </div> );
-    if (obj.hasOwnProperty('children')) {
+
         level++;
         Object.keys(obj.children).map(key => {
-            result.push(<div key={obj.children[key].comment.id} style={{paddingLeft: level*30}}><IoIosRedo />{renderComments(obj.children[key], level)}</div>);
+            result.push(<div key={obj.children[key].comment.id} style={{paddingLeft: level*30}}> <div className="d-flex"><IoIosRedo />{obj.comment.id}</div>{renderCommentsOnAdminPage(obj.children[key], level)}</div>);
         });
+    return result;
+};
+
+export const  hideOnClickOutside = (element, selector) => {
+    const outsideClickListener = event => {
+        if (event.target.closest(selector) === null) {
+            element.classList.add('hide');
+            removeClickListener()
+        }
+    };
+    const removeClickListener = () => {
+        document.removeEventListener('click', outsideClickListener)
+    };
+
+    document.addEventListener('click', outsideClickListener)
+};
+
+const ChangeReply = (e) => {
+    e.preventDefault();
+    let targetA = e.target;
+    document.querySelectorAll('.form-reply').forEach(element => {
+        element.classList.add('hide');
+    });
+    document.getElementById('parent_comment_' + targetA.getAttribute('data-parent_id')).classList.remove('hide');
+    let form = document.querySelector('#parent_comment_' + targetA.getAttribute('data-parent_id'));
+    hideOnClickOutside(form, '#parent_comment_' + targetA.getAttribute('data-parent_id'))
+
+};
+
+export const renderCommentsOnMainPage = (obj, level=0) => {
+    if (obj === []) {
+        return false;
     }
+    if([0,2,3].includes(parseInt(obj.comment.status))){
+        return false;
+    }
+
+    let result = [];
+    result.push(
+        <div key={obj.comment.id} className={statuses[obj.comment.status] + ' d-flex justify-content-start align-items-start reg-comment comment flex-column'} >
+            <div className="comments-user d-flex" >
+                {/*<div className="comments-user__avatar">*/}
+                {/*    <IoMdPerson />*/}
+                {/*</div>*/}
+                <div className="comments-user__name d-flex flex-column">
+                    <span>{obj.comment.name ? obj.comment.name : 'Тут должно быть имя пользователя'}</span>
+                    <div className="comments-user__time">
+                        {obj.comment.created_at ? obj.comment.created_at : 'Тут должно быть время комментария!!!'}
+                    </div>
+                </div>
+            </div>
+            <div className="comments__text">
+                {obj.comment.content ? obj.comment.content : 'Тут должен быть текст комментария. Желательно, очень хороший!!!'}
+            </div>
+            <div className="comments__action active">
+                <div className="reply">
+                    <a className="button-reply" data-parent_id={obj.comment.id} href="#" onClick={ChangeReply}>Ответить</a>
+                </div>
+            </div>
+            <CommentForm hide={true} parend_id={obj.comment.id}/>
+        </div>
+    );
+
+    level++;
+    Object.keys(obj.children).map(key => {
+            result.push(
+                <div key={obj.children[key].comment.id} style={{paddingLeft: level*30}}>
+                    {/*<div className="d-flex align-items-center">*/}
+                    {/*    <IoIosRedo />*/}
+                    {/*    <span style={{marginLeft:"15px"}}>{obj.comment.name}</span>*/}
+                    {/*</div>*/}
+                    {renderCommentsOnMainPage(obj.children[key], level)}
+                </div>
+            );
+    });
     return result;
 };
 
