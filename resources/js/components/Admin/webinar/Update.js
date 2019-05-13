@@ -61,8 +61,6 @@ class Update extends React.Component{
 
     };
     handleTextArea = (e) => {
-        //console.log(this.state)
-        //e.target.setAttribute('value', e.target.value)
         this.setState({
             commentsContent: {
                 ...this.state.commentsContent,
@@ -78,7 +76,6 @@ class Update extends React.Component{
         const btnChangeContent = e.target;
         adminAxios('/api/comment/' + idComment + '/update', {content: textArea.value}, "post")
             .then(res => {
-                console.log(res.data)
                 btnChangeContent.style.display = "none";
                 alert('Content is updated');
             })
@@ -92,11 +89,9 @@ class Update extends React.Component{
         const btnChangeContent = document.getElementById("btn-change-comment-" + e.currentTarget.getAttribute('data-comment_id'));
         currentTextArea.addEventListener("blur", function() {
             currentTextArea.setAttribute("disabled", "true");
-
-            console.log('asd')
+            btnChangeContent.style.display = "none"
         }, true);
 
-        console.log(e.currentTarget.getAttribute('data-comment_id'), currentTextArea);
         currentTextArea.removeAttribute("disabled");
         btnChangeContent.style.display = "block"
 
@@ -153,7 +148,10 @@ class Update extends React.Component{
 
         level++;
         Object.keys(obj.children).map(key => {
-            result.push(<div key={obj.children[key].comment.id} style={{paddingLeft: level*30}}> <div className="d-flex"><IoIosRedo />{obj.comment.id}</div>{this.renderCommentsOnAdminPage(obj.children[key], level)}</div>);
+            result.push(
+                <div key={obj.children[key].comment.id} style={{paddingLeft: level*30}}>
+                    {/*<div className="d-flex"><IoIosRedo />{obj.comment.id}</div>*/}
+                    {this.renderCommentsOnAdminPage(obj.children[key], level)}</div>);
         });
         return result;
     };
@@ -169,7 +167,7 @@ class Update extends React.Component{
                     .then(res => {
                         this.setState({
                             comments: res.data
-                        })
+                        });
 
                         res.data.forEach(el => {
                             this.setState({

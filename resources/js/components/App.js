@@ -6,6 +6,7 @@ import {store} from "./Root";
 import {setAuth} from "./actions/actions";
 import WebinarPage from './Webinar/WebinarPage';
 import Notfound from './Notfound';
+import AllWebinarsForUser from "./Webinar/AllWebinarsForUser";
 class App extends Component {
 
     constructor(props) {
@@ -37,6 +38,7 @@ class App extends Component {
         return (
             <Router>
                 <Switch>
+                    <Route exact path="/" render={({...routeProps}) => (<AllWebinarsForUser {...routeProps} cookies={this.props.cookies}/>)} />
                     <Route path="/admin" render={({...routeProps}) => (<Auth {...routeProps} cookies={this.props.cookies}/>)} />
                     {/*<Route path="/webinar" render={() => (<WebinarPage cookies={this.props.cookies}/>)} />*/}
                     <Route exact path="/webinar/:id" render={({...routeProps}) => (<WebinarPage {...routeProps} cookies={this.props.cookies}/>)} />
